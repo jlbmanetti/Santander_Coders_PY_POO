@@ -12,8 +12,6 @@
 
 
 
-
-
 class Clientes: #classe obrigatória
     base = [] #base em forma de lista
 
