@@ -11,7 +11,7 @@
 ### *Descritas com comentário em cada classe
 
 class Clientes: #classe obrigatória
-    base = [[9000000001,"nome1","data_nasc1"],[9000000002,"nome2","data_nasc2"],[9000000003,"nome3","data_nasc3"]] #base em forma de lista
+    base_c = [[9000000001,"nome1","da/ta/nasc1"],[9000000002,"nome2","da/ta/nasc2"],[9000000003,"nome3","da/ta/nasc3"]] #base em forma de lista
 
     def __init__(self, cpf:int, nome:str, data_nasc:str):
         self.cpf = cpf
@@ -20,16 +20,24 @@ class Clientes: #classe obrigatória
     
     @classmethod
     def search(cls, cpfs:int):
-        for i in len(cls.base):
-            if cpfs == cls.base[i-1][0]:
-                print("Cliente encontrado: \n"+f"CPF - {cls.base[i-1][0]}"+"\n"+f"NOME - {cls.base[i-1][1]}"+"\n"+f"DATA NASC. - {cls.base[i-1][2]}")
-            else:
-                print("Usuário não encontrado")
+        cpfs=int(cpfs)
+        n = 0
+        i = 0
+        while i < len(cls.base_c) and n == 0:
+                if cpfs == cls.base_c[i][0]:
+                    print("\nCliente encontrado: \n"+f"CPF - {cls.base_c[i][0]}"+"\n"+f"NOME - {cls.base_c[i][1]}"+"\n"+f"DATA NASC. - {cls.base_c[i][2]}")
+                    n +=1
+                i +=1       
+        if n == 0:
+            print(f"Cliente com CPF {cpfs} não foi encontrado")
 
     def adicionar(cls, self):
-        cls.base.append([self.cpf,self.nome,self.data_nasc])
+        cls.base_c.append([self.cpf,self.nome,self.data_nasc])
 
 class Medicamentos: #classe auxiliar superior
+    base_mf = [["med1f", "comp1f", "lab1f", "desc1f", False], ["med2", "comp2", "lab2", "desc2f", False], ["med3f", "comp3f", "lab3f", "descf3", False]]
+    base_mq = [["med1q", "comp1q", "lab1q", "desc1q", False], ["med2", "comp2", "lab2", "desc2q", False], ["med3q", "comp3q", "lab3q", "desc3q", True]]
+
     def __init__(self, nome:str, princ_comp:str, lab:str, desc:str, receita=False):
         self.nome = nome
         self.princ_comp = princ_comp
@@ -37,14 +45,14 @@ class Medicamentos: #classe auxiliar superior
         self.desc = desc
         self.receita = receita
 
+    def adicionar_quimioterapico(cls, self):
+        cls.base_mq.append([self.nome, self.princ_comp, self.lab, self.desc, self.receita])
+
+    def adicionar_fitoterapico(cls, self):
+        cls.base_mf.append([self.nome, self.princ_comp, self.lab, self.desc, self.receita])
+
 class Med_Qui(Medicamentos): #classe obrigatória
     pass
-
-#q1 = Med_Qui('medqui1','comp1','lab1','desc1')
-#q2 = Med_Qui('medqui2','comp2','lab2','desc2',True)
-
-#print(q1.receita)
-#print(q2.receita)
 
 class Med_Fit(Medicamentos): #classe obrigatória
     pass
@@ -72,31 +80,34 @@ while i != 0:
     a = int(input("Insira a opção: "))
 
     if a == 1:
-        print("\nMENU - [1]: \n[1] - Consulta por CPF")
+        print("\nMENU - Cadastro de clientes: \n[1] - Consulta por CPF")
         b = int(input("Insira a opção: "))
         if b == 1:
             cpfs = input("\nDigite o CPF: ")
-            print(Clientes.search(cpfs))
+            Clientes.search(cpfs)
 #        elif b == 2:
 #            print("entrou menu 2")
-#        elif b == 3:
-#            print("entrou menu 3")
-#        elif b == 4:
-#            print("entrou menu 4")
-#        elif b == 9:
-#            print("Você saiu... ")
-#            break
         else:
             print("Incorrect value")
     elif a == 2:
-        print("entrou menu 2")
+        print("\nMENU - Cadastro de medicamentos: \n[1] - Consulta por NOME \n[2] - Consulta por FABRICANTE \n[3] - Consulta por DESCRIÇÃO")
+        c = int(input("Insira a opção: "))
+        if c == 1:
+            cpfs = input("\nDigite o NOME: ")
+            Clientes.search(cpfs)
+#        elif c == 2:
+#            print("entrou menu 2")
+#        elif c == 3:
+#            print("entrou menu 3")
+        else:
+            print("Incorrect value")
     elif a == 3:
         print("entrou menu 3")
     elif a == 4:
         print("entrou menu 4")
     elif a == 9:
-        print("Você saiu... ")
-        break
+        print("Você saiu... \n")
+        i=0
     else:
-        print("Valor incorreto")
+        print("Valor incorreto... Tente novamente.")
 
