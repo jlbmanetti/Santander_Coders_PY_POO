@@ -10,26 +10,27 @@
 ## Funcionalidades:
 ### *Descritas com comentário em cada classe
 
-
-
 class Clientes: #classe obrigatória
-    base = [] #base em forma de lista
+    base = [[9000000001,"nome1","data_nasc1"],[9000000002,"nome2","data_nasc2"],[9000000003,"nome3","data_nasc3"]] #base em forma de lista
 
-    def __init__(self,cpf,nome,data_nasc):
+    def __init__(self, cpf:int, nome:str, data_nasc:str):
         self.cpf = cpf
         self.nome = nome
         self.data_nasc = data_nasc
+    
+    @classmethod
+    def search(cls, cpfs:int):
+        for i in len(cls.base):
+            if cpfs == cls.base[i-1][0]:
+                print("Cliente encontrado: \n"+f"CPF - {cls.base[i-1][0]}"+"\n"+f"NOME - {cls.base[i-1][1]}"+"\n"+f"DATA NASC. - {cls.base[i-1][2]}")
+            else:
+                print("Usuário não encontrado")
 
-    def add(self):
-        Clientes.base.append(self)
-
-a = Clientes(1111,'str','11/02')
-a.add()
-print(Clientes.base)
-
+    def adicionar(cls, self):
+        cls.base.append([self.cpf,self.nome,self.data_nasc])
 
 class Medicamentos: #classe auxiliar superior
-    def __init__(self,nome, princ_comp,lab,desc,receita=False):
+    def __init__(self, nome:str, princ_comp:str, lab:str, desc:str, receita=False):
         self.nome = nome
         self.princ_comp = princ_comp
         self.lab = lab
@@ -39,17 +40,17 @@ class Medicamentos: #classe auxiliar superior
 class Med_Qui(Medicamentos): #classe obrigatória
     pass
 
-q1 = Med_Qui('medqui1','comp1','lab1','desc1')
-q2 = Med_Qui('medqui2','comp2','lab2','desc2',True)
+#q1 = Med_Qui('medqui1','comp1','lab1','desc1')
+#q2 = Med_Qui('medqui2','comp2','lab2','desc2',True)
 
-print(q1.receita)
-print(q2.receita)
+#print(q1.receita)
+#print(q2.receita)
 
 class Med_Fit(Medicamentos): #classe obrigatória
     pass
       
 class Lab: #classe obrigatória
-    def __init__(self,nome,end,tel,cid,est):
+    def __init__(self, nome:str, end:str, tel:str, cid:str, est:str):
         self.nome = nome
         self.end = end
         self.tel = tel
@@ -57,9 +58,45 @@ class Lab: #classe obrigatória
         self.est = est
         
 class Vendas: #classe obrigatória
-    def __init__(self,datahora,prod,cliente,valor):
+    def __init__(self, datahora:str, prod:str, cliente, valor:str):
         self.datahora = datahora
         self.prod = prod
         self.cliente = cliente
         self.valor = valor
+
+
+i = 1
+while i != 0:
+
+    print("\nMENU: \n[1] - Cadastro de clientes \n[2] - Cadastro de medicamentos \n[3] - Efetuar venda \n[4] - Emissão de relatório \n[9] - Sair do menu")
+    a = int(input("Insira a opção: "))
+
+    if a == 1:
+        print("\nMENU - [1]: \n[1] - Consulta por CPF")
+        b = int(input("Insira a opção: "))
+        if b == 1:
+            cpfs = input("\nDigite o CPF: ")
+            print(Clientes.search(cpfs))
+#        elif b == 2:
+#            print("entrou menu 2")
+#        elif b == 3:
+#            print("entrou menu 3")
+#        elif b == 4:
+#            print("entrou menu 4")
+#        elif b == 9:
+#            print("Você saiu... ")
+#            break
+        else:
+            print("Incorrect value")
+    elif a == 2:
+        print("entrou menu 2")
+    elif a == 3:
+        print("entrou menu 3")
+    elif a == 4:
+        print("entrou menu 4")
+    elif a == 9:
+        print("Você saiu... ")
+        break
+    else:
+        print("Valor incorreto")
 
