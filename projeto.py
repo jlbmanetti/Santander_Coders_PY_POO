@@ -11,16 +11,15 @@
 ### *Descritas com comentário em cada classe
 
 class Clientes: #classe obrigatória
-    base_c = [[9000000001,"nome1","da/ta/nasc1"],[9000000002,"nome2","da/ta/nasc2"],[9000000003,"nome3","da/ta/nasc3"]] #base em forma de lista
+    base_c = [["00000000001","nome1","da/ta/nasc1"],["00000000002","nome2","da/ta/nasc2"],["00000000003","nome3","da/ta/nasc3"]] #base em forma de lista
 
-    def __init__(self, cpf:int, nome:str, data_nasc:str):
+    def __init__(self, cpf:str, nome:str, data_nasc:str):
         self.cpf = cpf
         self.nome = nome
         self.data_nasc = data_nasc
     
     @classmethod
-    def search(cls, cpfs:int):
-        cpfs=int(cpfs)
+    def search(cls, cpfs):
         n = 0
         i = 0
         while i < len(cls.base_c) and n == 0:
